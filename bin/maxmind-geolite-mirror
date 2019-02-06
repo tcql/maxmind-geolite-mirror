@@ -6,9 +6,16 @@ const config = require('../lib/config');
 const mirror = require('../lib/mm-geolite-mirror');
 
 let version = false;
-if (process.argv.length > 2 && process.argv[2] === '--version') {
+
+if (process.argv[2] === '--version') {
     if (!process.argv[3]) throw new Error('--version tag requires a value');
     version = process.argv[3];
+} else if (process.argv[2] === '--list-versions') {
+    cons.log('Available GeoLite versions:')
+    for (var key in config.geoIpDbs) {
+        cons.log(' - ' + key);
+    }
+    process.exit(0);
 }
 
 if (require.main === module) {
